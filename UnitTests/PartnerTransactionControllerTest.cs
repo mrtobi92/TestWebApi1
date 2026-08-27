@@ -11,7 +11,7 @@ public class PartnerTransactionControllerTest
 {
     private Mock<IPartnerTransactionService> partnerTransactionServiceMock;
 
-    public UserControllerTest()
+    public PartnerTransactionControllerTest()
     {
         partnerTransactionServiceMock = new Mock<IPartnerTransactionService>();
     }

@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  # 1. Your application service
+  web:
+    build: .             # Points to the Dockerfile in the same folder
+    ports:
+      - "8000:8000"      # Maps host port 8000 to container port 8000
+    volumes:
+      - .:/app           # Mounts source code for live-reloading (development)
+    environment:
+      - DATABASE_URL=dotnet_unit_test_db://user:dotnet_unit_test_db:5432/mydb
+
+    depends_on:
+      - db               # Ensures the database starts before the web app
+
+  # 2. An external database service
+  db:
+    image: postgres:15   # Pulls an official image directly from Docker Hub
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:         # Persists database data even if containers are destroyed
